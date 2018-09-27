@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Complicated Wires</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-grid.min.css" rel="stylesheet">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
+<div class="container">
+	<nav class="navbar navbar-expand-sm bg-light">
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+			<li class="nav-item"><a class="nav-link active" href="#">Complicated Wires</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Wire Sequence</a></li>
+			<li class="nav-item"><a class="nav-link" href="password.html">Password</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+		<h1>Keep Talking Assistant
+			<small>Version 1 / Revision 3</small>
+		</h1>
+		<div class="card">
+			<div class="card-body" onchange="refreshResult()">
+				<form id="form1">
+					<label class="btn btn-primary">Has Blue
+						<input id="blue" type="checkbox">
+					</label>
+					<label class="btn btn-danger">Has Red
+						<input id="red" type="checkbox">
+					</label>
+					<label class="btn btn-warning">Has ☆
+						<input id="star" type="checkbox">
+					</label>
+					<label class="btn btn-info">LED on
+						<input id="led" type="checkbox">
+					</label>
+				</form>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<h2 id="result">Cut the wire</h2>
+		</div>
+		<p>No warranty. Defuse the bomb at your own risk.</p>
+	</div>
+</div>
+<script>
+	var resultSet = [
+		'C', 'D', 'C', 'B',
+		'S', 'P', 'D', 'P',
+		'S', 'B', 'C', 'B',
+		'S', 'S', 'P', 'D'
+	];
+	function refreshResult(){
+		var index = 0b0000;
+		if($("#blue").is(":checked"))
+			index += 0b0100;
+		if($("#red").is(":checked"))
+			index += 0b1000;
+		if($("#star").is(":checked"))
+			index += 0b0010;
+		if($("#led").is(":checked"))
+			index += 0b0001;
+		$("#result").html(getResultText(resultSet[index]));
+	}
+	function getResultText(letter){
+		switch(letter){
+			case 'C': return "Cut the wire";
+			case 'D': return "Do NOT cut the wire";
+			case 'S': return "Cut the wire if the last digit of the SN. is even";
+			case 'P': return "Cut the wire if the bomb has a parallel port";
+			case 'B': return "Cut the wire if the bomb batteries >= 2";
+		}
+	}
+</script>
 </body>
 </html>
